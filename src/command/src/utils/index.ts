@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import path from 'node:path'
 
 /**
  * 检查是否是空目录

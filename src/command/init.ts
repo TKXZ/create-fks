@@ -43,7 +43,7 @@ export async function init() {
 
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
-    '../../../',
+    '../../',
     `template-${vue?.templateField}-${tooling?.templateField}`,
   )
 
