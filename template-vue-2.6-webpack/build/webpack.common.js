@@ -11,7 +11,7 @@ const config = {
     main: ENTRY,
   },
   output: {
-    filename: 'js/[name].[chunkhash:8].js',
+    filename: 'js/[name].[contenthash:8].js',
     path: DIST,
     clean: true,
   },
