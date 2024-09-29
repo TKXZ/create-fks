@@ -8,6 +8,7 @@
     "start": "npm run dev",
     "dev": "webpack serve --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js",
+    "build:test": "webpack-dev-server  --config ./build/webpack.test.js",
     "build:dll": "webpack --config ./build/dll/webpack.build.dll.js"
   },
   "keywords": [],
@@ -26,6 +27,7 @@
     "postcss": "^8.4.47",
     "postcss-loader": "^8.1.1",
     "tailwindcss": "^3.4.13",
+    "terser-webpack-plugin": "^5.3.10",
     "vue-loader": "^15.11.1",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^5.95.0",

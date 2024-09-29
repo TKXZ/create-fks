@@ -13,7 +13,6 @@ const config = {
   output: {
     filename: 'js/[name].[contenthash:8].js',
     path: DIST,
-    clean: true,
   },
   module: {
     rules: [
