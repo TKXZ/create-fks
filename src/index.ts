@@ -1,4 +1,4 @@
-import { init } from './command/init'
+import { init } from './init'
 import signale from 'signale'
 
 init().catch((err: unknown) => {

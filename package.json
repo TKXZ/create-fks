@@ -18,8 +18,10 @@
     "url": "git+https://github.com/TKXZ/create-fks.git"
   },
   "scripts": {
+    "start": "node ./index.js",
     "clean": "rimraf dist",
     "dev": "unbuild --stub",
+    "postdev": "npm start",
     "prebuild": "npm run clean",
     "build": "unbuild",
     "prepare": "husky",

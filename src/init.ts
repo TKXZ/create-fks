@@ -1,13 +1,13 @@
 import minimist from 'minimist'
 import path from 'node:path'
 import fs from 'node:fs'
-import * as commander from './src/commands'
+import * as commander from './command/src/commands'
 import { fileURLToPath } from 'node:url'
 import { UserCommandResult } from 'src/types'
-import { isEmptyDir } from './src/utils'
+import { isEmptyDir } from './command/src/utils'
 import { write } from './utils/file'
 import ora from 'ora'
-import { autoInstallDeps } from './src/commands/auto-install-dep'
+import { autoInstallDeps } from './command/src/commands/auto-install-dep'
 
 const spinner = ora()
 
@@ -22,13 +22,18 @@ const argv = minimist<{
 })
 
 export async function init() {
+  // 获取命令行中用户直接输入的文件夹名
   let projectNameFromArgv = formatProjectDir(argv._[0])
 
   const userData = { projectName: projectNameFromArgv }
 
+  // 创建项目文件夹
   await commander.createProjectDir(userData)
+  // 检查文件夹名合法性与文件夹内容
   await commander.checkProjectDir(userData)
+  // 选择Vue 版本
   await commander.selectVue(userData)
+  // 选择构建工具
   await commander.selectTooling(userData)
 
   const { projectName, vue, tooling } = userData as UserCommandResult
@@ -41,6 +46,7 @@ export async function init() {
     throw Error('创建项目失败, 目标目录不为空')
   }
 
+  // 目标模板存放地址
   const templateDir = path.resolve(
     fileURLToPath(import.meta.url),
     '../../',
@@ -48,7 +54,7 @@ export async function init() {
   )
 
   // 复刻模板
-  spinner.text = 'Fetching template to ' + projectName
+  spinner.text = '获取项目到 ' + projectName + ' 文件夹中\n'
   spinner.prefixText = '🚀 '
   spinner.start()
   for (const file of fs.readdirSync(templateDir)) {
@@ -69,14 +75,25 @@ export async function init() {
   spinner.stop()
 
   console.log(`
-    创建完成!
+    🎉 创建完成!
     `)
-  await autoInstallDeps([`cd ${projectName}`, 'npm install'])
 
-  console.log(`
-    全部已完成！
+  // 自动安装依赖
+  const isInstall = await autoInstallDeps([`cd ${projectName}`, 'npm install'])
+  if (isInstall) {
+    console.log(`
+    🎉 全部已完成！
+    cd ${projectName}
     npm run dev
     `)
+  } else {
+    console.log(`
+    🎉 全部已完成！
+    cd ${projectName}
+    npm / pnpm / yarn install
+    npm run dev
+    `)
+  }
 }
 
 // 格式化项目名称 去除空白和 / 因为可能出现路径

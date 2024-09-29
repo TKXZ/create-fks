@@ -18,5 +18,7 @@ export async function autoInstallDeps(shell: Array<string>) {
 
   if (isAutoInstallDeps) {
     execSync(shell.join(' && '), { stdio: 'inherit' })
+    return true
   }
+  return false
 }
