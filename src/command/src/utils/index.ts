@@ -16,8 +16,3 @@ export function isEmptyDir(dir: string) {
   }
   return false
 }
-
-export function write(target: string, file: string, content?: string) {
-  if (content) {
-  }
-}

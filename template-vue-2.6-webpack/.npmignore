@@ -1,1 +1,3 @@
 node_modules/
+build/dll/lib
+.temp_cache/

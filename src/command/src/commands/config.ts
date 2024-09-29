@@ -15,7 +15,7 @@ export default {
       value: {
         pkgVersion: '2.7.16',
         templateField: 'vue-2.7',
-        tooling: ['webpack', 'vite'],
+        tooling: ['vite'],
       },
     },
   ],
